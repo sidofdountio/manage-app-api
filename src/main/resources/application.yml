@@ -1,0 +1,80 @@
+spring:
+  profiles:
+    active: ${ACTIVE_PROFILE:dev}
+  datasource:
+    url: jdbc:mysql://localhost:3306/managerapp
+    username: root
+    password: root1/@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
+      schema-locations: classpath:/data/schema.sql
+      data-locations: classpath:/data/data.sql
+  mail:
+    host: ${EMAIL_HOST}
+    port: ${EMAIL_PORT}
+    username: ${EMAIL_ID}
+    password: ${EMAIL_PASSWORD}
+    default-encoding: UTF-8
+    properties:
+      mail:
+        protocol: smtp
+        mime:
+          charset: UTF
+        smtp:
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
+          auth: true
+          ssl:
+            trust: "*"
+          starttls:
+            enable: true
+  ai:
+    openai:
+      api-key: ${OPEN_AI_KEY}
+
+server:
+  port: 9000
+  error:
+    include-message: always
+    include-biding: always
+  servlet:
+    context-path: /api/v1/manager-app
+
+
+application:
+  title: manage-app
+  version: 0.0.1
+  image: ${APP_IMAGE:https://cdn-icons-png.flaticon.com/512/149/149071.png}
+  origin: ${ORIGIN}
+  file:
+    upload:
+      photos-output-path: ${UPLOAD_PATH:./upload-image}
+  security:
+    jwt:
+      secret-key: ${SECRETKEY}
+      expiration: ${EXPIRATION}
+      refresh-token-expiration: ${REFRESH_TOKEN_EXPIRATION:604800000}
+  mailing:
+    email: ${COMPANY_EMAIL}
+  front-end:
+    activation-url: ${ACTIVATION_URL}
+    password-url: ${PASSWORD_URL}
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer: error

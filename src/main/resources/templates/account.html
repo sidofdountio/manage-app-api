@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Activation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    h1 {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .greeting {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    .intro-text {
+        font-size: 15px;
+        margin-bottom: 25px;
+        color: #555;
+    }
+
+    .activation-code-container {
+        background-color: #f1f8fe;
+        border-radius: 6px;
+        padding: 15px;
+        margin: 25px 0;
+        text-align: center;
+    }
+
+    .code-label {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 8px;
+    }
+
+    .code {
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: #007bff;
+        margin: 10px 0;
+    }
+
+    .activation-link {
+        text-align: center;
+        margin: 30px 0;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 6px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #0069d9;
+    }
+
+    .note {
+        font-size: 13px;
+        color: #777;
+        margin-top: 30px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 30px;
+        color: #777;
+        font-size: 13px;
+    }
+
+    .logo {
+        font-weight: 700;
+        color: #2c3e50;
+    }
+</style>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Activate Your Account</h1>
+    </div>
+
+    <p class="greeting" th:text="'Hello ' + ${firstName} + ','"></p>
+
+    <p class="intro-text">Thank you for signing up! To complete your registration, please use the activation code below or click the activation button.</p>
+
+    <div class="activation-code-container">
+        <div class="code-label">Your activation code:</div>
+        <div class="code" th:text="${activationCode}"></div>
+    </div>
+
+    <div class="activation-link">
+        <a th:href="${url}" class="btn" target="_blank">Activate Account</a>
+    </div>
+
+    <p class="intro-text">This code will expire in 24 hours. If you didn't request this, please ignore this email.</p>
+
+    <p class="note">Note: Please do not reply to this email as this address is not monitored.</p>
+
+    <footer>
+        <p>© 2024 <span class="logo">SIDOF</span>. All rights reserved.</p>
+    </footer>
+</div>
+</body>
+</html>
