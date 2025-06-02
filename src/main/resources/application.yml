@@ -40,6 +40,9 @@ spring:
             trust: "*"
           starttls:
             enable: true
+  ai:
+    openai:
+      api-key: ${OPEN_AI_KEY}
 
 server:
   port: 9000
