@@ -27,7 +27,5 @@ public class ManageAppApplication {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ManageAppApplication.class, args);
-
     }
-
 }
