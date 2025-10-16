@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif, "Roboto Light";
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        font-size: 14px;
+    }
+    h1 {
+        font-weight: bold;
+        font-size: 28px;
+        text-align: center;
+        color: #333;
+    }
+    p {
+        font-size: 14px;
+        text-align: center;
+    }
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .otp-code {
+        font-size: 36px;
+        font-weight: bold;
+        color: #007bff;
+        text-align: center;
+        margin: 20px 0;
+        letter-spacing: 5px;
+    }
+    .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #777;
+    }
+    a {
+        text-decoration: none;
+        color: #007bff;
+    }
+</style>
+<body>
+<div class="container">
+    <h1>OTP Verification</h1>
+    <p class="greeting">Hello, <span th:text="${firstName}">User</span></p>
+    <p>Use the following OTP to complete your login process:</p>
+    <div class="otp-code" th:text="${otp}"></div>
+    <p>Note: This OTP is valid for 15 minutes. Please do not share it with anyone.</p>
+    <div class="footer">
+        <p>&copy; 2025 All rights reserved SIDOF SARL.</p>
+    </div>
+</div>
+</body>
+</html>

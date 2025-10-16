@@ -18,8 +18,25 @@ import lombok.Builder;
 @Builder
 public class AuthResponse {
     private String token;
-    private String referenceId;
+    private String refreshToken;
     private String username;
+    private boolean otpRequired;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 
     public String getUsername() {
         return username;
@@ -29,19 +46,11 @@ public class AuthResponse {
         this.username = username;
     }
 
-    public String getReferenceId() {
-        return referenceId;
+    public boolean isOtpRequired() {
+        return otpRequired;
     }
 
-    public void setReferenceId(String referenceId) {
-        this.referenceId = referenceId;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+    public void setOtpRequired(boolean otpRequired) {
+        this.otpRequired = otpRequired;
     }
 }

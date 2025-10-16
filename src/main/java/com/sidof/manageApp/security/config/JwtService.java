@@ -23,7 +23,6 @@ import static io.jsonwebtoken.SignatureAlgorithm.HS256;
  * GitHub   : @SidofDountio
  * Version  : V1.0
  * Email    : sidofdountio406@gmail.com
- * Licence  : All Right Reserved BIS
  * Since    : 4/14/25
  * </blockquote></pre>
  */
@@ -33,7 +32,7 @@ public class JwtService {
     @Value("${application.security.jwt.secret-key}")
     private String SECRET_KEY;
     @Value("${application.security.jwt.expiration}")
-    private Long JWTEXPIRATIONDATE;
+    private Long JWT_EXPIRATION_DATE;
 
 
 
@@ -48,12 +47,15 @@ public class JwtService {
      * user: UserDetails from spring.security.
      */
     public String generateToken(Map<String, Object> extractClaim, UserDetails userDetails) {
+        System.out.println("###########################################");
+        System.out.println("JWT VALUE" + SECRET_KEY);
+        System.out.println("###########################################");
         return Jwts
                 .builder()
                 .setClaims(extractClaim)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWTEXPIRATIONDATE))
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_DATE))
                 .signWith(getSignInKey(), HS256)
                 .compact();
     }

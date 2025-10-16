@@ -1,9 +1,12 @@
 #SERVER
-SERVER_PORT: 8011
 ACTIVE_PROFILE: dev
+SERVER_PORT: 8011
+CONTAINER_PORT: 8011
+
 
 #OPENAI
-OPEN_AI_KEY: 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
+OPEN_AI_KEY: default_secret
+
 
 
 #DATASOURSE
@@ -23,14 +26,17 @@ EMAIL_ID: sidofdountio@gmail.com
 EMAIL_PASSWORD: sa
 
 COMPANY_EMAIL: sidof@gmail.com
-SECRETKEY: 3521a409ec66d38296f0acc5f264e1541e26336b251bf48d6969e0eabca486cd9eb35f2c30d7eebaebad4867b58cb9f8188714138e05e71e8a173b711eed1768
+#JWT
+JWT_SECRET: S0GFIJ4pfv7yOVfz3SSHR+CnMe194SVaAW4zxkl+x3fLrMSW/0LuGkrL+SrSdr28olCjsI1nbqB5truczFbcoA==
 EXPIRATION: 86400000
 
 #FRONTEND
 HOST_SERVER: localhost
 ANGULAR_PORT: 30007
 VERIFY_EMAIL_HOST: http://localhost${SERVER_PORT}
-PASSWORD_URL: http://${HOST_SERVER}:${ANGULAR_PORT}/change-password
+CONFIRMATION_ACCOUNT_URL: http://${HOST_SERVER}:${ANGULAR_PORT}/activation-account?token=
+PASSWORD_URL: http://${HOST_SERVER}:${ANGULAR_PORT}/reset-password?token=
+
 ACTIVATION_URL: http://${HOST_SERVER}:${ANGULAR_PORT}/activation-account
 CUSTOMER_ORDER_URL: http://${HOST_SERVER}:${ANGULAR_PORT}/service/customer-invoice
-ORIGIN: http://localhost:8011/api/v1/manager-app
+ORIGIN: http://localhost:9000/api/v1/manager-app

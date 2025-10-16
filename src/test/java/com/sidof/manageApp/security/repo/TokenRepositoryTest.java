@@ -30,9 +30,9 @@ class TokenRepositoryTest {
     void setUp() {
         user = new User(
                 "test@example.com",
-                "securePassword",
-                "Test",
-                "User"
+                "lastname",
+                "123332",
+                "securePassword"
         );
         user = userRepository.save(user);
     }

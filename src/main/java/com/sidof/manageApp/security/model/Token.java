@@ -32,11 +32,12 @@ public class Token {
     @GeneratedValue(generator = "token_sequence_id",strategy = GenerationType.SEQUENCE)
     private Long id;
     private String token;
+    private String refreshToken;
 
     @ManyToOne
     @JoinColumn(name = "user_id",referencedColumnName = "id",foreignKey = @ForeignKey(name = "fk_token_user"))
     private User user;
-    private String refreshToken;
+
 
     private LocalDateTime createAt;
 

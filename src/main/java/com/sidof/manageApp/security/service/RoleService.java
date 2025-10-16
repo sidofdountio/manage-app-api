@@ -30,7 +30,9 @@ public class RoleService {
     }
 
     public Role saveNewRole(String name){
-        getRoleByName(name);
+        if(roleRepository.findByName(name).isPresent()){
+            throw new IllegalStateException("Role exist with that name :"+name);
+        }
         Role  newRole = new Role();
         newRole.setName(name);
         return roleRepository.save(newRole);

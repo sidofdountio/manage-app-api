@@ -22,12 +22,21 @@ import java.util.Optional;
 
 public interface TokenRepository extends JpaRepository<Token,Long> {
 
-    @Query("" + "SELECT t FROM Token t WHERE t.token = ?1")
+    @Query("SELECT t FROM Token t WHERE t.token = ?1")
     Optional<Token> findByToken(String token);
 
+//    @Query("""
+//            SELECT t FROM Token t inner join User u ON t.user.id = u.id
+//             WHERE u.id = :id AND (t.expired = false OR t.revoked = false)
+//            """)
+
     @Query("""
-            SELECT t FROM Token t inner join User u ON t.user.id = u.id
-             WHERE u.id = :id AND (t.expired = false OR t.revoked = false)
+                SELECT t FROM Token t 
+                INNER JOIN User u ON t.user.id = u.id
+                WHERE u.id = :id AND (t.expired = false AND t.revoked = false)
             """)
     List<Token> findAllValidTokensByUser(Long id);
+
+    @Query("SELECT t FROM Token t WHERE t.refreshToken = ?1")
+    Optional<Token> findByRefreshToken(String refreshToken);
 }

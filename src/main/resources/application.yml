@@ -63,7 +63,7 @@ application:
       photos-output-path: ${UPLOAD_PATH:./upload-image}
   security:
     jwt:
-      secret-key: ${SECRETKEY}
+      secret-key: ${JWT_SECRET}
       expiration: ${EXPIRATION}
       refresh-token-expiration: ${REFRESH_TOKEN_EXPIRATION:604800000}
   mailing:

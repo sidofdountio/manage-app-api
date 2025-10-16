@@ -25,6 +25,15 @@ public record RegisterRequest(
         @NotBlank
         @Size(min = 3, max = 20)
         String lastName,
+        @NotEmpty(message = "101")
+        @NotBlank
+        @Size(min = 3, max = 20)
+        String firstName,
+        @NotEmpty(message = "103")
+        @NotBlank
+        @Size(min = 5, max = 20)
+        String idCardNumber,
+
 //        @Size(min = 8)
         @NotBlank
         @Size(min = 6, max = 40)

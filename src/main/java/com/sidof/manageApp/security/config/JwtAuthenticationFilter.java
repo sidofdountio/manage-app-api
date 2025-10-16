@@ -1,12 +1,15 @@
 package com.sidof.manageApp.security.config;
 
+import com.sidof.manageApp.security.model.User;
 import com.sidof.manageApp.security.repo.TokenRepository;
+import com.sidof.manageApp.security.repo.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,6 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final TokenRepository tokenRepo;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -64,6 +68,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+            User user = userRepository.findByEmail(userEmail).orElseThrow(()-> new BadCredentialsException("Users with account " + userEmail + " not exist."));
+
+//            MFA
+            if (user.isUsingMfa() && !user.isMfaVerified()) {
+                // Don't authenticate yet, ask frontend to call verify-otp
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.getWriter().write("{\"message\": \"MFA verification required\"}");
+                return;
+            }
+//            TOKEN
             boolean isValidToken = tokenRepo.findByToken(token)
                     .map(t -> !t.isExpired() && !t.isRevoked())
                     .orElse(false);

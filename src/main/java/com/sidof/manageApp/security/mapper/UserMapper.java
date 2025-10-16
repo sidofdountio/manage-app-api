@@ -20,8 +20,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserMapper {
-    @Value("${application.image}")
-    String DEFAULT_USER_IMAGE_PROFILE;
     private final PasswordEncoder passwordEncoder;
 
     public UserMapper(PasswordEncoder passwordEncoder) {
@@ -29,6 +27,6 @@ public class UserMapper {
     }
 
     public User toUsers(RegisterRequest request) {
-        return  new User(request.email(),request.lastName(),passwordEncoder.encode(request.password()));
+        return  new User(request.email(),request.lastName(),request.firstName(), request.idCardNumber(), passwordEncoder.encode(request.password()));
     }
 }

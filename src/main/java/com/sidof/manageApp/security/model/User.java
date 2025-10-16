@@ -34,20 +34,29 @@ public class User implements UserDetails, Principal {
     @Column(nullable = false, length = 64)
     private String password;
 
-    @Column(name = "first_name", nullable = false, length = 20)
+    @Column(name = "first_name",  length = 20)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 20)
+    @Column(name = "last_name",  length = 20)
     private String lastName;
+
+    @Column(name = "matricule", nullable = true, length = 20)
+    private String matricule;
+
+    @Column(name = "id_card_number", length = 20)
+    private String idCardNumber;
 
     //    private String address;
     private String imageUrl;
     private boolean enable;
     private boolean accountLocked;
-    private boolean isUsingMfa;
+    private boolean isUsingMfa=false;
     private boolean active;
     @Column(unique = true)
     private String username;
+
+    private boolean mfaVerified = false; // Has MFA been verified in this session
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
@@ -56,6 +65,10 @@ public class User implements UserDetails, Principal {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Token> tokens = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<OtpToken> otpTokens = new ArrayList<>();
 
 
     public User() {
@@ -67,11 +80,14 @@ public class User implements UserDetails, Principal {
         this.password = password;
     }
 
-    public User(String email, String password, String firstName, String lastName) {
+    public User(String email,String lastName,String firstName,String idCardNumber,String password) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.idCardNumber = idCardNumber;
+        this.firstName = firstName;
+
     }
 
     public User(String email, String lastName, String firstName, String username, boolean enable, boolean accountLocked, boolean isUsingMfa, boolean active, String password) {
@@ -83,6 +99,13 @@ public class User implements UserDetails, Principal {
         this.accountLocked = accountLocked;
         this.isUsingMfa = isUsingMfa;
         this.active = active;
+        this.password = password;
+    }
+
+    public User(String email, String lastName, String idCardNumber, String password) {
+        this.email = email;
+        this.lastName = lastName;
+        this.idCardNumber = idCardNumber;
         this.password = password;
     }
 
@@ -225,6 +248,39 @@ public class User implements UserDetails, Principal {
         this.role = role;
     }
 
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
+    }
+
+    public String getIdCardNumber() {
+        return idCardNumber;
+    }
+
+    public void setIdCardNumber(String idCardNumber) {
+        this.idCardNumber = idCardNumber;
+    }
+
+
+    public boolean isMfaVerified() {
+        return mfaVerified;
+    }
+
+    public void setMfaVerified(boolean mfaVerified) {
+        this.mfaVerified = mfaVerified;
+    }
+
+    public List<OtpToken> getOtpTokens() {
+        return otpTokens;
+    }
+
+    public void setOtpTokens(List<OtpToken> otpTokens) {
+        this.otpTokens = otpTokens;
+    }
+
     @Override
     public String getName() {
         return email;
@@ -232,5 +288,23 @@ public class User implements UserDetails, Principal {
 
     public String getFullName() {
         return lastName + " " + firstName;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", enable=" + enable +
+                ", accountLocked=" + accountLocked +
+                ", isUsingMfa=" + isUsingMfa +
+                ", active=" + active +
+                ", username='" + username + '\'' +
+                ", role=" + role +
+                '}';
     }
 }
